@@ -1,0 +1,8 @@
+Website = "https://github.com/duncanvanzyl/xplane-serial-gps-connector"
+
+[Details]
+  Icon = "icon.png"
+  Name = "X-Plane Serial GPS Connector"
+  ID = "xplane-serial-gps-connector"
+  Version = "1.0.0"
+  Build = 1

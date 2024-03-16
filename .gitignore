@@ -1,1 +1,2 @@
-xplane-serial-connector.app
+*.app
+.DS_Store
