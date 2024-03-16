@@ -25,3 +25,16 @@ fyne package -os windows
 ## Extend
 
 My needs are for _GGA_ and _VTG_ sentences. Yours might be for something else. If so, just create something that implements the `Outputter` interface and add it to the list of outputters in main.go.
+
+## Icon
+
+The Location Pin icon used for this app comes from [WikiMedia](https://commons.wikimedia.org/wiki/File:Location-pin.png) and is licensed under the [Creative Commons](https://en.wikipedia.org/wiki/en:Creative_Commons) [Attribution-Share Alike 4.0 International](https://creativecommons.org/licenses/by-sa/4.0/deed.en) license.
+
+### Source Details
+
+These come from wikimedia:
+
+**Description** Español: icono de posicion  
+**Date** 17 May 2019  
+**Source** https://www.flaticon.com/search/5?search-type=icons&word=map+marker  
+**Author** FLAT ICON
