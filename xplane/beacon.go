@@ -135,7 +135,7 @@ func decodeBeacon(bs []byte, addr *net.UDPAddr) (*XPlaneBeacon, error) {
 // listenForBeacon will listen for a beacon on the multicast group and return the beacon or an error if no
 // beacon is found
 func listenForBeacon(timeout time.Time, gaddr *net.UDPAddr) (*XPlaneBeacon, error) {
-	conn, err := net.ListenMulticastUDP("udp", nil, gaddr)
+	conn, err := getConnection(gaddr)
 	if err != nil {
 		return nil, fmt.Errorf("could not listen to UDP address: %v", err)
 	}
