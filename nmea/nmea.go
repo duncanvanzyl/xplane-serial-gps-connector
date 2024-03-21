@@ -31,16 +31,16 @@ const (
 
 var (
 	DEFAULTS = formats{
-		lat: fmt.Sprintf("%%02d%%0.%df", DEFAULT_LAT_PRECISION),
-		lon: fmt.Sprintf("%%03d%%0.%df", DEFAULT_LON_PRECISION),
+		lat: fmt.Sprintf("%%02d%%0%d.%df", DEFAULT_LAT_PRECISION+3, DEFAULT_LAT_PRECISION),
+		lon: fmt.Sprintf("%%03d%%0%d.%df", DEFAULT_LON_PRECISION+3, DEFAULT_LON_PRECISION),
 		alt: fmt.Sprintf("%%0.%df", DEFAULT_ALT_PRECISION),
 		sog: fmt.Sprintf("%%0.%df", DEFAULT_SOG_PRECISION),
 		hdg: fmt.Sprintf("%%0.%df", DEFAULT_HDG_PRECISION),
 	}
 
 	ENHANCED = formats{
-		lat: fmt.Sprintf("%%02d%%02.%df", ENHANCED_LAT_PRECISION),
-		lon: fmt.Sprintf("%%03d%%02.%df", ENHANCED_LON_PRECISION),
+		lat: fmt.Sprintf("%%02d%%0%d.%df", ENHANCED_LAT_PRECISION+3, ENHANCED_LAT_PRECISION),
+		lon: fmt.Sprintf("%%03d%%0%d.%df", ENHANCED_LON_PRECISION+3, ENHANCED_LON_PRECISION),
 		alt: fmt.Sprintf("%%0.%df", ENHANCED_ALT_PRECISION),
 		sog: fmt.Sprintf("%%0.%df", ENHANCED_SOG_PRECISION),
 		hdg: fmt.Sprintf("%%0.%df", ENHANCED_HDG_PRECISION),
@@ -48,6 +48,9 @@ var (
 
 	// Formats is the formats used for the NMEA messages
 	Formats = DEFAULTS
+
+	LAT_RUNES = [2]rune{'N', 'S'}
+	LON_RUNES = [2]rune{'E', 'W'}
 )
 
 // calculateChecksum will calculate the checksum for a NMEA message
@@ -64,14 +67,15 @@ func calculateChecksum(s string) byte {
 // v is the value to convert
 // ds is the directions ([N, S,] or [E, W]) positive first, negative second
 // fm is the format string (e.g. "%02d%02.4f" for latitude or "%03d%02.4f" for longitude)
-func calculateLL(v float64, ds []rune, fm string) string {
+func calculateLL(v float64, ds [2]rune, fm string) string {
 	// lat and lon are be supplied as floats, and are converted to degrees and minutes
 	// lat and lon direction needs to be determined based on positive or negative values
 	vA := math.Abs(v)
 	vDegrees := math.Floor(vA)
 	vMinutes := (vA - vDegrees) * 60
+
 	vD := ds[0]
-	if vA < 0 {
+	if v < 0 {
 		vD = ds[1]
 	}
 	vS := fmt.Sprintf(fm+",%s", int(vDegrees), vMinutes, string(vD))
@@ -81,11 +85,11 @@ func calculateLL(v float64, ds []rune, fm string) string {
 // calculateLat will convert the latitude for a NMEA message
 func calculateLat(lat float64) string {
 	// lat needs 4 leading digits and 4 decimal places
-	return calculateLL(lat, []rune{'N', 'S'}, Formats.lat)
+	return calculateLL(lat, LAT_RUNES, Formats.lat)
 }
 
 // calculateLon will convert the longitude for a NMEA message
 func calculateLon(lon float64) string {
 	// lon needs 5 leading digits and 4 decimal places
-	return calculateLL(lon, []rune{'E', 'W'}, Formats.lon)
+	return calculateLL(lon, LON_RUNES, Formats.lon)
 }

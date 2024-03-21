@@ -21,7 +21,7 @@ func ToGPVTG(heading float64, sog float64) string {
 	headingS := fmt.Sprintf(Formats.hdg, math.Mod(heading+360, 360))
 
 	// knots (N) = 1.94384 * m/s
-	sogKnots := fmt.Sprintf(Formats.sog+",N", sog*1.94384)
+	sogKnots := fmt.Sprintf(Formats.sog+",N", sog*1.943845249221964)
 	// km/h (K) = 3.6 * m/s
 	sogKmh := fmt.Sprintf(Formats.sog+",K", sog*3.6)
 

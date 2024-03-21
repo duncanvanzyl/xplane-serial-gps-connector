@@ -189,7 +189,7 @@ func FindXplane(wait time.Duration) (*XPlaneBeacon, error) {
 			return nil, err
 		}
 
-		if err == nil && !beacon.IsMaster() {
+		if !beacon.IsMaster() {
 			Logger.Info("Found non-Master X-Plane", "beacon", beacon)
 			continue
 		}
