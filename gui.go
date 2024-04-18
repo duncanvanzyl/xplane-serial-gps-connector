@@ -37,7 +37,7 @@ var (
 	PossibleBaudeRates = [...]string{"9600", "14400", "19200", "38400", "57600", "115200"}
 	// PossiblePosFreqs is the list of possible position frequencies
 	// This will determine the rate that the X-Plane position is read
-	PossiblePosFreqs = [...]string{"5Hz", "10Hz", "20Hz"}
+	PossiblePosFreqs = [...]string{"1Hz", "2Hz", "5Hz", "10Hz", "20Hz"}
 )
 
 // NewAppUI returns a new AppUI
